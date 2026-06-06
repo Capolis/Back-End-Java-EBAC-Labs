@@ -1,0 +1,3 @@
+1|Semente de Abóbora|15.50|AGRICULTURA
+2|Espada de Ferro|150.00|RPG
+3|Dado Mágico|5.00|TABULEIRO
