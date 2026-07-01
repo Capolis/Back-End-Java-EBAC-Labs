@@ -1,0 +1,25 @@
+server:
+# Porta dedicada ao servico de estoque
+  port: 8082 
+
+spring:
+  application:
+    name: inventory-service
+  datasource:
+    # Banco isolado apenas para o estoque
+    url: jdbc:h2:mem:inventorydb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+springdoc:
+  swagger-ui:
+    # Caminho para acessar a interface grafica
+    path: /swagger-ui.html 
+  api-docs:
+    # Caminho onde o JSON da documentacao e gerado
+    path: /v3/api-docs 

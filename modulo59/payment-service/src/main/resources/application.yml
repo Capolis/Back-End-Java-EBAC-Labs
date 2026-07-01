@@ -1,0 +1,22 @@
+server:
+  port: 8083 # Porta dedicada ao servico de pagamentos
+
+spring:
+  application:
+    name: payment-service
+  datasource:
+    # Banco isolado apenas para as transacoes de pagamento
+    url: jdbc:h2:mem:paymentdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html # Caminho para acessar a interface grafica
+  api-docs:
+    path: /v3/api-docs # Caminho onde o JSON da documentacao e gerado

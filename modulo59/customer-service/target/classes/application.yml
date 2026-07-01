@@ -1,0 +1,22 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: customer-service
+  datasource:
+    # Banco isolado apenas para os clientes
+    url: jdbc:h2:mem:customerdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html # Caminho para acessar a interface grafica
+  api-docs:
+    path: /v3/api-docs # Caminho onde o JSON da documentacao e gerado
