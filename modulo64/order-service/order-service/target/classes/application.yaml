@@ -1,0 +1,50 @@
+server:
+  port: 8081
+
+debug: true # Liga o relatório de auto-configuração do Spring
+
+logging:
+  level:
+    root: INFO
+    # Liga o debug extremo APENAS para o despachante do Zipkin
+    io.zipkin.reporter2: TRACE
+    org.springframework.boot.actuate.autoconfigure.tracing: DEBUG
+    io.micrometer.tracing: DEBUG
+
+spring:
+  application:
+    name: order-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    template:
+      observation-enabled: true # Liga o Zipkin para o Produtor
+    listener:
+      observation-enabled: true # Liga o Zipkin para o Consumidor
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ # URL do Eureka Server
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, info
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0 # Envia 100% dos traces para o Zipkin
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+      connect-timeout: 5s
+      read-timeout: 10s
+
+io:
+  zipkin:
+    reporter:
+      message-timeout: 0s # Envio imediato
