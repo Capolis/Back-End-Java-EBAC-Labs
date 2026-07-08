@@ -1,19 +1,25 @@
-# Print Service
+# Processing Service
 
 ## Overview
-The `print-service` is a Kafka Consumer microservice. It is configured to listen to the `pedidos` topic under the specific consumer group `print-group`. Its primary responsibility is to fetch messages in real-time, safely deserialize the JSON payload, and output the data to the system console.
+The `processing-service` acts as the persistence layer consumer. Operating under the `processing-group`, it listens to the `pedidos` topic independently from the Print Service. 
 
-This service utilizes an `ErrorHandlingDeserializer` to prevent continuous crash loops in the event of malformed data headers.
+It consumes the JSON message, maps it directly to the `OrderDocument` entity, updates the order status to `PROCESSED`, and saves the record permanently into a MongoDB database.
 
 ## Technologies
 * Java 21
 * Spring Boot 3.2.5
 * Spring Kafka
+* Spring Data MongoDB
 * Micrometer Tracing (Brave)
 * Eureka Client
 
+## Database Details
+* **Engine:** MongoDB
+* **Database Name:** `orders_db`
+* **Target Collection:** `OrderDocument`
+
 ## Execution
-Ensure Kafka and the Discovery Server are running before initialization.
+Ensure Kafka, MongoDB, Zipkin, and the Discovery Server are running before initialization.
 
 ```bash
 mvn spring-boot:run

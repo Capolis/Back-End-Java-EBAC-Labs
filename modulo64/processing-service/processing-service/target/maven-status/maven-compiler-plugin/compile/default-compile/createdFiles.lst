@@ -1,0 +1,4 @@
+br\com\processing_service\service\OrderConsumerService.class
+br\com\processing_service\repository\OrderRepository.class
+br\com\processing_service\model\OrderDocument.class
+br\com\processing_service\ProcessingServiceApplication.class
