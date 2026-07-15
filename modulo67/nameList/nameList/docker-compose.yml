@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0.35
+    container_name: mysql_name_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: name_db
+    ports:
+      - "3306:3306"
+    # Adiciona um healthcheck para saber quando o banco está realmente pronto
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+
+  name-api:
+    # O Docker vai procurar o Dockerfile na mesma pasta e fazer o build automaticamente
+    build: . 
+    container_name: spring_name_api
+    ports:
+      - "8080:8080"
+    # Faz a API esperar o MySQL estar 100% pronto antes de iniciar
+    depends_on:
+      mysql-db:
+        condition: service_healthy
