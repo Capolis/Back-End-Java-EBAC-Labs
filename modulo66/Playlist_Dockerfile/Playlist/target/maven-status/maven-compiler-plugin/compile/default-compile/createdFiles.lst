@@ -1,0 +1,4 @@
+br\com\access_playlist\Application.class
+br\com\access_playlist\service\PlaylistService.class
+br\com\access_playlist\controller\PlaylistController.class
+br\com\access_playlist\dto\PlaylistDto.class
